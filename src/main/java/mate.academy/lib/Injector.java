@@ -24,6 +24,7 @@ public class Injector {
         Object clazzImplementationInstance = null;
         Class<?> clazz = findImplementation(interfaceClazz);
         Field[] fields = clazz.getDeclaredFields();
+        Object fieldInstance;
 
         if (!clazz.isAnnotationPresent(Component.class)) {
             throw new RuntimeException("Error: Class " + clazz.getName()
@@ -32,7 +33,7 @@ public class Injector {
 
         for (Field field : fields) {
             if (field.isAnnotationPresent(Inject.class)) {
-                Object fieldInstance = getInstance(field.getType());
+                fieldInstance = getInstance(field.getType());
                 clazzImplementationInstance = createNewInstantClazz(clazz);
 
                 field.setAccessible(true);
